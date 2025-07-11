@@ -3,6 +3,7 @@
 //
 
 #include "CodiceFiscale.h"
+#include <iostream>
 #include <vector>
 #include <string>
 using namespace std;
@@ -44,5 +45,12 @@ bool isConsonant(const char &c)
 
 string Cognome(const string &cgnm)
 {
+    pmr::vector<char> cogno;
+    for(int i=0; i < cgnm.size(); ++i)
+    {
+        if(isConsonant(cgnm[i]))
+        {
 
+        }
+    }
 }
