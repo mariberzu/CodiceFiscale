@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\CodiceFiscale.cpp.dir/objects.a
+"C:\PROGRA~1\JetBrains\CLion 2024.2.2\bin\mingw\bin\ar.exe" qc CMakeFiles\CodiceFiscale.cpp.dir/objects.a @CMakeFiles\CodiceFiscale.cpp.dir\objects1.rsp
+"C:\PROGRA~1\JetBrains\CLion 2024.2.2\bin\mingw\bin\g++.exe" -g -Wl,--whole-archive CMakeFiles\CodiceFiscale.cpp.dir/objects.a -Wl,--no-whole-archive -o CodiceFiscale.cpp.exe -Wl,--out-implib,libCodiceFiscale.cpp.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\CodiceFiscale.cpp.dir\linkLibs.rsp
