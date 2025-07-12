@@ -6,16 +6,16 @@ using namespace std;
 int main()
 {
     string cogno;
-    cout << "Inserisci Cognome" << endl;
+    string name;
+    cout << "Inserisci Cognome: " << endl;
     getline(cin, cogno);
+    cout << "Inserisci Nome: " << endl;
+    getline(cin,name);
 
-    int x2 = contaConsonanti(cogno);
-    int x1 = cogno.size() - x2;
 
-    cout << "Vocali: " << x1 << endl;
-    cout << "Consonanti: " << x2 << endl;
-
-    string x3 = Cognome(cogno);
-    cout << x3 << endl;
+    string x1 = Cognome(cogno);
+    string x2 = Nome(name);
+    cout << "Cognome: " << x1 << endl;
+    cout << "Nome: " << x2 << endl;
 
 }
