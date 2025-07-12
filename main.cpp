@@ -23,5 +23,7 @@ int main()
     cout << "Cognome: " << x1 << endl;
     cout << "Nome: " << x2 << endl;
     cout << "Anno di Nascita: " << x3 << endl;
+    string tot = x1+x2+x3;
+    cout << tot << endl;
 
 }
