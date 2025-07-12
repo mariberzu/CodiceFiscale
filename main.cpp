@@ -14,8 +14,10 @@ int main()
     int ann;
     cout << "Inserisci Cognome: " << endl;
     getline(cin, cogno);
+    transform(cogno.begin(),cogno.end(),cogno.begin(),::toupper);
     cout << "Inserisci Nome: " << endl;
     getline(cin,name);
+    transform(name.begin(),name.end(),name.begin(),::toupper);
     cout << "Inserisci Anno di Nascita: " << endl;
     cin >> ann;
     cout << "Inserisci Mese di Nascita (1-12): " << endl;
