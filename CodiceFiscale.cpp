@@ -1,5 +1,9 @@
-
+#include <algorithm>
 #include <iostream>
+#include <cctype>
+#include <fstream>
+#include <sstream>
+#include <unordered_map>
 #include <vector>
 #include <string>
 using namespace std;
@@ -130,4 +134,106 @@ string Nome(const string &nom) {
 int AnnoNascita(const int &anno) {
     int res = anno % 10;
     return res;
+}
+
+string MeseNascita(const int &ms) {
+    char res;
+    if(ms<1 || ms>12) return "null";
+
+    switch (ms) {
+        case 1:
+            res = 'A';
+        break;
+        case 2:
+            res = 'B';
+        break;
+        case 3:
+            res = 'C';
+        break;
+        case 4:
+            res = 'D';
+        break;
+        case 5:
+            res = 'E';
+        break;
+        case 6:
+            res = 'H';
+        break;
+        case 7:
+            res = 'L';
+        break;
+        case 8:
+            res = 'M';
+        break;
+        case 9:
+            res = 'P';
+        break;
+        case 10:
+            res = 'R';
+        break;
+        case 11:
+            res = 'S';
+        break;
+        case 12:
+            res = 'T';
+        break;
+        default:
+            res = 'X';
+        break;
+    }
+    string res_s(1,res);
+    return res_s;
+}
+
+int GiornoNascita(const int &giorno, const bool &sesso) {
+    if(giorno<1 || giorno >31) return 0;
+    int res = 0;
+    //SE UOMO
+    if(sesso==1) {
+        res = giorno;
+    }
+    else if(sesso==0) {
+        res = giorno+40;
+    }
+    return res;
+}
+
+unordered_map<string, string> caricaCodici(const string& nomeFile) {
+    unordered_map<string, string> codici;
+    ifstream file(nomeFile);
+    if(!file.is_open()) {
+        cerr << "Errore: impossibile aprire il file " << nomeFile << endl;
+        return codici;
+    }
+
+    string riga;
+
+    while (getline(file, riga)) {
+        istringstream ss(riga);
+        string nomeLocalita, codice;
+        if (getline(ss, nomeLocalita, ',') && getline(ss, codice)) {
+            codici[nomeLocalita] = codice;
+        }
+    }
+    return codici;
+}
+
+string normalizzaNome(const string& nome) {
+    if (nome.empty()) return nome;
+    string risultato = nome;
+    transform(risultato.begin(), risultato.end(), risultato.begin(), ::tolower);
+    risultato[0] = ::toupper(risultato[0]);
+    return risultato;
+}
+
+string ZonaNascita(const string& zona) {
+    auto codici = caricaCodici("elenco_codici_zone.csv");
+    string localita = normalizzaNome(zona);
+
+    auto it = codici.find(localita);
+    if (it != codici.end()) {
+        return it->second;
+    } else {
+        return "ND";
+    }
 }
