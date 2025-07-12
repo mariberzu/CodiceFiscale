@@ -126,3 +126,8 @@ string Nome(const string &nom) {
     string s(vectNom.begin(),vectNom.end());
     return s;
 }
+
+int AnnoNascita(const int &anno) {
+    int res = anno % 10;
+    return res;
+}
