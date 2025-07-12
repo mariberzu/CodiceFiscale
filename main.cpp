@@ -37,11 +37,11 @@ int main()
     string x4 = MeseNascita(mese);
     string x5 = to_string(GiornoNascita(giorno, sesso));
     string x6 = ZonaNascita(zona);
-    /*cout << "Cognome: " << x1 << endl;
-    cout << "Nome: " << x2 << endl;
-    cout << "Anno di Nascita: " << x3 << endl;
-    cout << "Zona di Nascita: " << x4 << endl;*/
     string tot = x1+x2+x3+x4+x5+x6;
-    cout << tot << endl;
+    string x7 = CarattereControllo(tot);
+
+    string cf_finale = x1+x2+x3+x4+x5+x6+x7;
+    cout << "Codice Fiscale: " << cf_finale << endl;
+
 
 }

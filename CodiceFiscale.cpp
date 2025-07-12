@@ -237,3 +237,124 @@ string ZonaNascita(const string& zona) {
         return "ND";
     }
 }
+
+
+string caratteriPari(const string &cf_temp) {
+    vector<char> stringa_pari;
+    for(int i = 0; i < cf_temp.size(); ++i) {
+        if(i%2 == 1) {
+            stringa_pari.push_back(cf_temp[i]);
+        }
+    }
+    string spari(stringa_pari.begin(), stringa_pari.end());
+    return spari;
+}
+
+string caratteriDispari(const string &cf_temp) {
+    vector<char> stringa_dispari;
+    for(int i = 0; i < cf_temp.size(); ++i) {
+        if(i%2 == 0) {
+            stringa_dispari.push_back(cf_temp[i]);
+        }
+    }
+    string sdispari(stringa_dispari.begin(), stringa_dispari.end());
+    return sdispari;
+}
+
+
+//CONVERSIONE PER CODICE DI CONTROLLO
+unordered_map<char, int> caricaMappaControllo(const string& nomeFile) {
+    unordered_map<char, int> mappa;
+    ifstream file(nomeFile);
+    string riga;
+    if(!file.is_open()) {
+        cerr << "Errore: impossibile aprire il file " << nomeFile << endl;
+        return mappa;
+    }
+
+    while (getline(file, riga)) {
+        istringstream ss(riga);
+        string carattereStr, valoreStr;
+        if (getline(ss, carattereStr, ',') && getline(ss, valoreStr)) {
+            if(!carattereStr.empty()) {
+                char chiave = carattereStr[0];
+                int valore = stoi(valoreStr);
+                mappa[chiave]=valore;
+            }
+        }
+    }
+    return mappa;
+
+}
+
+vector<int> convertiCaratteri(const string& input, const unordered_map<char,int>&mappa) {
+    vector<int> valori;
+    for(char c:input) {
+        auto it = mappa.find(c);
+        if(it!=mappa.end()) {
+            valori.push_back(it->second);
+        }else {
+            valori.push_back(-1);
+        }
+    }
+    return valori;
+}
+
+unordered_map<int, char> caricaConversione(const string& nomeFile) {
+    unordered_map<int, char> mappa;
+    ifstream file(nomeFile);
+    string riga;
+    if(!file.is_open()) {
+        cerr << "Errore: impossibile aprire il file " << nomeFile << endl;
+        return mappa;
+    }
+    while (getline(file, riga)) {
+        istringstream ss(riga);
+        string valoreStr, carattereStr;
+        if (getline(ss, valoreStr, ',') && getline(ss, carattereStr)) {
+            if(!valoreStr.empty()) {
+                int valore = stoi(valoreStr);
+                char carattere = carattereStr[0];
+                mappa[valore] = carattere;
+            }
+        }
+    }
+    return mappa;
+}
+char trovaCarattere(int numero, const unordered_map<int, char>& mappa) {
+    auto it = mappa.find(numero);
+    if(it!=mappa.end()) {
+        return it->second;
+    }else {
+        return '?';
+    }
+}
+
+string CarattereControllo(const string &cf_temp) {
+    string spari = caratteriPari(cf_temp);
+    string sdispari = caratteriDispari(cf_temp);
+
+    auto mappaPari = caricaMappaControllo("codice_controllo_pari.csv");
+    auto mappaDispari = caricaMappaControllo("codice_controllo_dispari.csv");
+
+    vector <int> valoriPari = convertiCaratteri(spari, mappaPari);
+    vector <int> valoriDispari = convertiCaratteri(sdispari, mappaDispari);
+
+    int sommaTot = 0;
+    for(int v=0; v<valoriPari.size();++v) {
+        sommaTot= sommaTot+valoriPari[v];
+    }
+    for(int v=0; v<valoriDispari.size();++v) {
+        sommaTot= sommaTot+valoriDispari[v];
+    }
+
+
+    int resto = sommaTot % 26;
+    auto mappaConversione = caricaConversione("codice_controllo_resto.csv");
+    char carattereFinale = trovaCarattere(resto, mappaConversione);
+    string ccfinale(1,carattereFinale);
+    return ccfinale;
+
+
+}
+
