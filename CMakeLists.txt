@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 26)
 add_executable(
     CodiceFiscale.cpp
     src/main.cpp
-)
+ )
 
 
 configure_file(${CMAKE_SOURCE_DIR}/resources/elenco_codici_zone.csv ${CMAKE_BINARY_DIR}/elenco_codici_zone.csv COPYONLY)
