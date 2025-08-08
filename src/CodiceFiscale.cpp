@@ -7,6 +7,7 @@
 
 using std::cin, std::cout, std::endl, std::string, std::vector, std::unordered_map, std::ifstream, std::istringstream, std::cerr, std::transform, std::to_string;
 
+// FUNZIONE PER VERIFICARE SE UN CARATTERE È UNA VOCALE
 bool isVowel(const char &c) {
 	if (
 		c == 'a' ||
@@ -26,7 +27,7 @@ bool isVowel(const char &c) {
 	}
 }
 
-
+//FUNZIONE PER CONTARE LE CONSONANTI
 int contaConsonanti(const std::string &st) {
 	int n = 0;
 	for (char i: st) {
@@ -37,6 +38,7 @@ int contaConsonanti(const std::string &st) {
 	return n;
 }
 
+//GESTIONE DEL COGNOME
 string Cognome(const string& cgnm) {
 	vector<char> vectCogno;
 	for (int i = 0; i < cgnm.size(); ++i) {
@@ -62,6 +64,7 @@ string Cognome(const string& cgnm) {
 	return s;
 }
 
+//GESTIONE DEL NOME
 string Nome(const string &nom) {
 	//RIMOZIONE SPAZI
 	string processedName;
@@ -102,60 +105,30 @@ string Nome(const string &nom) {
 	return s;
 }
 
+//GESTIONE DELL'ANNO DI NASCITA	
 int AnnoNascita(const int &anno) {
 	int res = anno % 10;
 	return res;
 }
 
+//MAPPATURA DEI MESI
+std::unordered_map<int,string> mesi = {
+	{1, "A"}, {2, "B"}, {3, "C"}, {4, "D"},
+	{5, "E"}, {6, "H"}, {7, "L"}, {8, "M"},
+	{9, "P"}, {10, "R"}, {11, "S"}, {12, "T"}
+};
+
+//TRANSFORMAZIONE DEL MESE IN LETTERA
 string MeseNascita(const int &ms) {
 	char res;
 	if (ms < 1 || ms > 12) return "null";
 
-	switch (ms) {
-		case 1:
-			res = 'A';
-			break;
-		case 2:
-			res = 'B';
-			break;
-		case 3:
-			res = 'C';
-			break;
-		case 4:
-			res = 'D';
-			break;
-		case 5:
-			res = 'E';
-			break;
-		case 6:
-			res = 'H';
-			break;
-		case 7:
-			res = 'L';
-			break;
-		case 8:
-			res = 'M';
-			break;
-		case 9:
-			res = 'P';
-			break;
-		case 10:
-			res = 'R';
-			break;
-		case 11:
-			res = 'S';
-			break;
-		case 12:
-			res = 'T';
-			break;
-		default:
-			res = 'X';
-			break;
-	}
+	mesi.find(ms) != mesi.end() ? res = mesi[ms][0] : res = 'X';
 	string res_s(1, res);
 	return res_s;
 }
 
+//GESTIONE DEL GIORNO DI NASCITA
 int GiornoNascita(const int &giorno, const bool &sesso) {
 	if (giorno < 1 || giorno > 31) return 0;
 	int res = 0;
@@ -168,6 +141,7 @@ int GiornoNascita(const int &giorno, const bool &sesso) {
 	return res;
 }
 
+// CARICAMENTO DEI CODICI DELLE LOCALITA' DA FILE CSV
 unordered_map<string, string> caricaCodici(const string &nomeFile) {
 	unordered_map<string, string> codici;
 	ifstream file(nomeFile);
@@ -188,6 +162,7 @@ unordered_map<string, string> caricaCodici(const string &nomeFile) {
 	return codici;
 }
 
+// NORMALIZZAZIONE DEL NOME DELLA LOCALITA'
 string normalizzaNome(const string &nome) {
 	if (nome.empty()) return nome;
 	string risultato = nome;
@@ -196,6 +171,7 @@ string normalizzaNome(const string &nome) {
 	return risultato;
 }
 
+// GESTIONE DELLA ZONA DI NASCITA
 string ZonaNascita(const string &zona) {
 	auto codici = caricaCodici("elenco_codici_zone.csv");
 	string localita = normalizzaNome(zona);
@@ -208,6 +184,7 @@ string ZonaNascita(const string &zona) {
 	}
 }
 
+// GESTIONE DEI CARATTERI PARI 
 string caratteriPari(const string &cf_temp) {
 	vector<char> stringa_pari;
 	for (int i = 0; i < cf_temp.size(); ++i) {
@@ -219,6 +196,7 @@ string caratteriPari(const string &cf_temp) {
 	return spari;
 }
 
+// GESTIONE DEI CARATTERI DISPARI
 string caratteriDispari(const string &cf_temp) {
 	vector<char> stringa_dispari;
 	for (int i = 0; i < cf_temp.size(); ++i) {
@@ -254,6 +232,7 @@ unordered_map<char, int> caricaMappaControllo(const string &nomeFile) {
 	return mappa;
 }
 
+// CONVERSIONE DEI CARATTERI IN VALORI
 vector<int> convertiCaratteri(const string &input, const unordered_map<char, int> &mappa) {
 	vector<int> valori;
 	for (char c: input) {
@@ -267,6 +246,7 @@ vector<int> convertiCaratteri(const string &input, const unordered_map<char, int
 	return valori;
 }
 
+// CARICAMENTO DELLA MAPPATURA PER LA CONVERSIONE DEL RESTO
 unordered_map<int, char> caricaConversione(const string &nomeFile) {
 	unordered_map<int, char> mappa;
 	ifstream file(nomeFile);
@@ -289,6 +269,7 @@ unordered_map<int, char> caricaConversione(const string &nomeFile) {
 	return mappa;
 }
 
+// TROVA IL CARATTERE CORRISPONDENTE AL RESTO
 char trovaCarattere(int numero, const unordered_map<int, char> &mappa) {
 	auto it = mappa.find(numero);
 	if (it != mappa.end()) {
@@ -298,6 +279,7 @@ char trovaCarattere(int numero, const unordered_map<int, char> &mappa) {
 	}
 }
 
+// CALCOLO DEL CARATTERE DI CONTROLLO
 string CarattereControllo(const string &cf_temp) {
 	string spari = caratteriPari(cf_temp);
 	string sdispari = caratteriDispari(cf_temp);
@@ -324,6 +306,7 @@ string CarattereControllo(const string &cf_temp) {
 	return ccfinale;
 }
 
+// FUNZIONE PRINCIPALE PER GENERARE IL CODICE FISCALE
 string returnCodiceFiscale() {
 	string cogno;
 	string name;
