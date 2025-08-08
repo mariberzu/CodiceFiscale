@@ -1,13 +1,13 @@
 
-#include "CodiceFiscale.cpp"
+#include "CodiceFiscale.h"
+#include <iostream>
 
-using namespace std;
 
 int main()
 {
     
-    string cfinale = returnCodiceFiscale();
-    cout << "Codice Fiscale: " << cfinale << endl;
+    std::string cfinale = returnCodiceFiscale();
+    std::cout << "Codice Fiscale: " << cfinale << std::endl;
 
     return 0;
 }

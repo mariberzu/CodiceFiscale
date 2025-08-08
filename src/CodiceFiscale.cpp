@@ -1,12 +1,11 @@
+#include "CodiceFiscale.h"
 #include <algorithm>
 #include <iostream>
 #include <cctype>
 #include <fstream>
 #include <sstream>
-#include <unordered_map>
-#include <vector>
-#include <string>
-using namespace std;
+
+using std::cin, std::cout, std::endl, std::string, std::vector, std::unordered_map, std::ifstream, std::istringstream, std::cerr, std::transform, std::to_string;
 
 bool isVowel(const char &c) {
     if (
@@ -35,7 +34,7 @@ bool isConsonant(const char &c) {
     }
 }
 
-int contaConsonanti(const string &st) {
+int contaConsonanti(const std::string &st) {
     int n = 0;
     for (char i: st) {
         if (isConsonant(i)) {
@@ -45,7 +44,7 @@ int contaConsonanti(const string &st) {
     return n;
 }
 
-string Cognome(const string &cgnm) {
+string Cognome(const string& cgnm) {
     vector<char> vectCogno;
     for (int i = 0; i < cgnm.size(); ++i) {
         if (isConsonant(cgnm[i]) && vectCogno.size() < 3) {
@@ -180,7 +179,7 @@ unordered_map<string, string> caricaCodici(const string &nomeFile) {
     unordered_map<string, string> codici;
     ifstream file(nomeFile);
     if (!file.is_open()) {
-        cerr << "Errore: impossibile aprire il file " << nomeFile << endl;
+       cerr << "Errore: impossibile aprire il file " << nomeFile << endl;
         return codici;
     }
 

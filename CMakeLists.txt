@@ -1,15 +1,25 @@
 cmake_minimum_required(VERSION 3.29)
-project(untitled2)
+project(CodiceFiscale VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 26)
 
-add_executable(
-    CodiceFiscale.cpp
+
+
+
+add_executable(codice_fiscale
+    src/CodiceFiscale.cpp
     src/main.cpp
  )
 
+target_include_directories(codice_fiscale PRIVATE include)
 
-configure_file(${CMAKE_SOURCE_DIR}/resources/elenco_codici_zone.csv ${CMAKE_BINARY_DIR}/elenco_codici_zone.csv COPYONLY)
-configure_file(${CMAKE_SOURCE_DIR}/resources/codice_controllo_pari.csv ${CMAKE_BINARY_DIR}/codice_controllo_pari.csv COPYONLY)
-configure_file(${CMAKE_SOURCE_DIR}/resources/codice_controllo_dispari.csv ${CMAKE_BINARY_DIR}/codice_controllo_dispari.csv COPYONLY)
-configure_file(${CMAKE_SOURCE_DIR}/resources/codice_controllo_resto.csv ${CMAKE_BINARY_DIR}/codice_controllo_resto.csv COPYONLY)
+set(RESOURCE_FILES
+    resources/elenco_codici_zone.csv
+    resources/codice_controllo_pari.csv
+    resources/codice_controllo_dispari.csv
+    resources/codice_controllo_resto.csv
+)
+
+foreach(RESOURCE ${RESOURCE_FILES})
+    configure_file(${CMAKE_SOURCE_DIR}/${RESOURCE} ${CMAKE_BINARY_DIR}/${RESOURCE} COPYONLY)
+endforeach()
