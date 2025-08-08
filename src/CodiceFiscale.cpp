@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 
+
 using std::cin, std::cout, std::endl, std::string, std::vector, std::unordered_map, std::ifstream, std::istringstream, std::cerr, std::transform, std::to_string;
 
 // FUNZIONE PER VERIFICARE SE UN CARATTERE È UNA VOCALE
