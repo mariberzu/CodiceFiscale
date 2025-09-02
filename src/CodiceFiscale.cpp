@@ -65,7 +65,7 @@ string Nome(const string &nom) {
 
 	//IDENTIFICAZIONE DELLE CONSONANTI ED AGGIUNTA AL VETTORE VECTNOM;
 	for (int i = 0; i < processedName.size(); ++i) {
-		if (!isVowel(processedName[i])) {
+		if (!vocale(processedName[i])) {
 			vectNom.push_back(processedName[i]);
 		}
 	}
@@ -79,7 +79,7 @@ string Nome(const string &nom) {
 	//SE SONO MENO DI 3 RIEMPIO CON VOCALI, SE NON CI SONO RIEMPIO CON 'X';
 	if (vectNom.size() <= 2) {
 		for (int i = 0; i < processedName.size(); ++i) {
-			if (isVowel(processedName[i]) && vectNom.size() < 3) {
+			if (vocale(processedName[i]) && vectNom.size() < 3) {
 				vectNom.push_back(processedName[i]);
 			}
 		}
@@ -162,7 +162,7 @@ string normalizzaNome(const string &nome) {
 
 // GESTIONE DELLA ZONA DI NASCITA
 string ZonaNascita(const string &zona) {
-	auto codici = caricaCodici("elenco_codici_zone.csv");
+	auto codici = caricaCodici("resources/elenco_codici_zone.csv");
 	string localita = normalizzaNome(zona);
 
 	auto it = codici.find(localita);
@@ -273,8 +273,8 @@ string CarattereControllo(const string &cf_temp) {
 	string spari = caratteriPari(cf_temp);
 	string sdispari = caratteriDispari(cf_temp);
 
-	auto mappaPari = caricaMappaControllo("codice_controllo_pari.csv");
-	auto mappaDispari = caricaMappaControllo("codice_controllo_dispari.csv");
+	auto mappaPari = caricaMappaControllo("resources/codice_controllo_pari.csv");
+	auto mappaDispari = caricaMappaControllo("resources/codice_controllo_dispari.csv");
 
 	vector<int> valoriPari = convertiCaratteri(spari, mappaPari);
 	vector<int> valoriDispari = convertiCaratteri(sdispari, mappaDispari);
@@ -289,7 +289,7 @@ string CarattereControllo(const string &cf_temp) {
 
 
 	int resto = sommaTot % 26;
-	auto mappaConversione = caricaConversione("codice_controllo_resto.csv");
+	auto mappaConversione = caricaConversione("resources/codice_controllo_resto.csv");
 	char carattereFinale = trovaCarattere(resto, mappaConversione);
 	string ccfinale(1, carattereFinale);
 	return ccfinale;

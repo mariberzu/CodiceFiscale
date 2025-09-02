@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 //FUNZIONE CHE CONTROLLA SE UN CARATTERE È UNA VOCALE
-bool isVowel(const char& c);
+bool vocale(const char& c);
 
 //FUNZIONE CHE CONTA LE CONSONANTI
 int contaConsonanti(const std::string& st);
