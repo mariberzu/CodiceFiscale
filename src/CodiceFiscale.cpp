@@ -4,35 +4,23 @@
 #include <cctype>
 #include <fstream>
 #include <sstream>
+#include <unordered_set>
 
 
-using std::cin, std::cout, std::endl, std::string, std::vector, std::unordered_map, std::ifstream, std::istringstream, std::cerr, std::transform, std::to_string;
+using std::cin, std::cout, std::endl, std::string, std::vector, std::unordered_map,std::unordered_set, std::ifstream, std::istringstream, std::cerr, std::transform, std::to_string;
 
 // FUNZIONE PER VERIFICARE SE UN CARATTERE È UNA VOCALE
-bool isVowel(const char &c) {
-	if (
-		c == 'a' ||
-		c == 'e' ||
-		c == 'i' ||
-		c == 'o' ||
-		c == 'u' ||
-		c == 'A' ||
-		c == 'E' ||
-		c == 'I' ||
-		c == 'O' ||
-		c == 'U'
-	) {
-		return true;
-	} else {
-		return false;
-	}
+bool vocale(const char& c) {
+	static const unordered_set<char> vocali =
+	{ 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
+	return vocali.contains(c);
 }
 
 //FUNZIONE PER CONTARE LE CONSONANTI
 int contaConsonanti(const std::string &st) {
 	int n = 0;
 	for (char i: st) {
-		if (!isVowel(i)) {
+		if (!vocale(i)) {
 			++n;
 		}
 	}
@@ -43,14 +31,14 @@ int contaConsonanti(const std::string &st) {
 string Cognome(const string& cgnm) {
 	vector<char> vectCogno;
 	for (int i = 0; i < cgnm.size(); ++i) {
-		if (!isVowel(cgnm[i]) && vectCogno.size() < 3) {
+		if (!vocale(cgnm[i]) && vectCogno.size() < 3) {
 			vectCogno.push_back(cgnm[i]);
 		}
 	}
 
 	if (vectCogno.size() <= 2) {
 		for (int i = 0; i < cgnm.size(); ++i) {
-			if (isVowel(cgnm[i]) && vectCogno.size() < 3) {
+			if (vocale(cgnm[i]) && vectCogno.size() < 3) {
 				vectCogno.push_back(cgnm[i]);
 			}
 		}

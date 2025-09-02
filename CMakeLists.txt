@@ -8,8 +8,7 @@ set(CMAKE_CXX_STANDARD 26)
 
 add_executable(codice_fiscale
     src/CodiceFiscale.cpp
-    src/main.cpp
- )
+    src/main.cpp)
 
 target_include_directories(codice_fiscale PRIVATE include)
 
